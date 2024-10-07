@@ -7,25 +7,14 @@ import L from 'leaflet';
 import * as satellite from 'satellite.js';
 
 // TLE (Two-Line Element) para Landsat 8 y 9
-// const TLE_LANDSAT_8 = [
-//     '1 39084U 13008A   22222.27637483  .00000036  00000-0  22627-4 0  9994',
-//     '2 39084  98.2085 172.5241 0001570  98.1601 261.9886 14.57102522505916',
-// ];
-
 const TLE_LANDSAT_8 = [
-    '1 39084U 13008A   24280.79344377  .00002481  00000-0  56051-3 0  9991',
-    '2 39084  98.2180 348.9979 0001313  94.2857 265.8492 14.57116925619661'
+    '1 39084U 13008A   22222.27637483  .00000036  00000-0  22627-4 0  9994',
+    '2 39084  98.2085 172.5241 0001570  98.1601 261.9886 14.57102522505916',
 ];
-
-
-
 const TLE_LANDSAT_9 = [
-    '1 49260U 21088A   24280.82780792  .00002639  00000-0  59538-3 0  9992',
-    '2 49260  98.2208 349.0303 0001273  90.8261 269.3083 14.57127514160941'
+    '1 49260U 21088A   22222.23409167 -.00000129  00000-0  00000+0 0  9991',
+    '2 49260  98.2022 205.6764 0001391  98.7123 261.4237 14.57195847 13413',
 ];
-
-
-
 
 // URL del icono personalizado de satélite
 const satelliteIconUrl = 'http://localhost/LandsatTracker/public/img/iconsatellite.svg';
@@ -38,30 +27,19 @@ const satelliteIcon = new L.Icon({
     popupAnchor: [0, -19], // posición del popup respecto al icono
 });
 
-// Función para obtener la ubicación del satélite en un momento específico
-const getSatellitePositionAtTime = (tle, date) => {
+// Función para obtener la ubicación del satélite en tiempo real
+const getSatellitePosition = (tle) => {
     const satrec = satellite.twoline2satrec(tle[0], tle[1]);
-    const positionAndVelocity = satellite.propagate(satrec, date);
+    const now = new Date();
+    const positionAndVelocity = satellite.propagate(satrec, now);
     const position = satellite.eciToGeodetic(
         positionAndVelocity.position,
-        satellite.gstime(date)
+        satellite.gstime(now)
     );
     return {
         lat: satellite.degreesLat(position.latitude),
         lng: satellite.degreesLong(position.longitude),
     };
-};
-
-// Función para obtener las posiciones históricas de los últimos 5 minutos
-const getHistoricalPositions = (tle, intervalSeconds, totalMinutes) => {
-    const now = new Date();
-    const historicalPositions = [];
-    for (let i = totalMinutes * 60; i >= 0; i -= intervalSeconds) {
-        const pastTime = new Date(now.getTime() - i * 1000);
-        const position = getSatellitePositionAtTime(tle, pastTime);
-        historicalPositions.push(position);
-    }
-    return historicalPositions;
 };
 
 export default function Index() {
@@ -70,33 +48,16 @@ export default function Index() {
     const [landsat8Trajectory, setLandsat8Trajectory] = useState([]); // Guarda las posiciones anteriores de Landsat 8
     const [landsat9Trajectory, setLandsat9Trajectory] = useState([]); // Guarda las posiciones anteriores de Landsat 9
 
-    // Obtener las posiciones históricas y actuales inmediatamente después de cargar
-    useEffect(() => {
-        // Cálculo de posiciones históricas al cargar la página
-        const historicalLandsat8 = getHistoricalPositions(TLE_LANDSAT_8, 5, 120); // Intervalo de 5 segundos durante 5 minutos
-        const historicalLandsat9 = getHistoricalPositions(TLE_LANDSAT_9, 5, 120);
-
-        setLandsat8Trajectory(historicalLandsat8);
-        setLandsat9Trajectory(historicalLandsat9);
-
-        // Cálculo inmediato de las posiciones actuales
-        const currentLandsat8Position = getSatellitePositionAtTime(TLE_LANDSAT_8, new Date());
-        const currentLandsat9Position = getSatellitePositionAtTime(TLE_LANDSAT_9, new Date());
-
-        setLandsat8Position(currentLandsat8Position);
-        setLandsat9Position(currentLandsat9Position);
-    }, []);
-
-    // Actualiza las posiciones actuales de Landsat 8 y 9 cada 5 segundos
+    // Actualiza las posiciones de Landsat 8 y 9 cada 5 segundos
     useEffect(() => {
         const interval = setInterval(() => {
-            const newLandsat8Position = getSatellitePositionAtTime(TLE_LANDSAT_8, new Date());
-            const newLandsat9Position = getSatellitePositionAtTime(TLE_LANDSAT_9, new Date());
+            const newLandsat8Position = getSatellitePosition(TLE_LANDSAT_8);
+            const newLandsat9Position = getSatellitePosition(TLE_LANDSAT_9);
 
             setLandsat8Position(newLandsat8Position);
             setLandsat9Position(newLandsat9Position);
 
-            // Actualiza la trayectoria acumulando posiciones actuales
+            // Actualiza la trayectoria acumulando posiciones anteriores
             setLandsat8Trajectory((prev) => [...prev, newLandsat8Position]);
             setLandsat9Trajectory((prev) => [...prev, newLandsat9Position]);
         }, 5000);

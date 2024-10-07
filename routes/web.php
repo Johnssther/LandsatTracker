@@ -15,7 +15,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $satelliteIconUrl = asset('img/iconsatellite.svg');
+    return Inertia::render('Dashboard', ['satelliteIconUrl' => $satelliteIconUrl]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
