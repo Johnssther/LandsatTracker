@@ -28,7 +28,7 @@ const TLE_LANDSAT_9 = [
 
 
 // URL del icono personalizado de satélite
-const satelliteIconUrl = 'http://localhost/LandsatTracker/public/img/iconsatellite.svg';
+const satelliteIconUrl = 'http://137.184.49.59//img/iconsatellite.svg';
 
 // Configurar el nuevo icono personalizado de Leaflet
 const satelliteIcon = new L.Icon({
