@@ -43,77 +43,100 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     </nav>
                 </header>
                 <div className="relative flex min-h-screen flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
-                    <div className="relative">
+                    <div className="">
 
-                        <main className=" h-screen">
-                            {/* Hero Section */}
+                        <main className=" h-screen w-screen">
+
                             <section
                                 className="bg-cover bg-center h-screen flex items-center justify-center"
                                 style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2012/01/09/09/59/earth-11595_1280.jpg')" }}
                             >
                                 <div className="bg-black bg-opacity-60 p-12 text-center rounded-2xl shadow-lg backdrop-blur-sm">
                                     <h2 className="text-6xl font-extrabold text-white drop-shadow-lg">
-                                        Satellite Data Solutions
+                                        🚨 Your Crops Are at Risk
                                     </h2>
                                     <p className="text-2xl text-gray-200 mt-6 leading-relaxed mb-5">
-                                        Using Landsat 8 and 9 to solve environmental and space challenges.
+                                        Are you making the best decisions for your land? 🌱 Without real-time data, your yields could be suffering. Get insights from Landsat 8 and 9 today and take control of your farm's future.
                                     </p>
                                     <Link
                                         href={route('login')}
                                         className="mt-8 bg-red-600 text-white px-8 py-4 rounded-full hover:bg-red-800 transition-transform transform hover:scale-105 shadow-xl"
                                     >
-                                        Start Tracking
+                                        Start Tracking 🌍
+                                    </Link>
+                                    <p className="text-lg text-gray-400 mt-4">
+                                        🚀 Join us in the NASA Space Apps Challenge 2024!
+                                    </p>
+                                </div>
+                            </section>
+                            <section className="bg-white text-gray-800 py-20">
+                                <div className="max-w-6xl mx-auto text-center">
+                                    <h2 className="text-4xl font-semibold mb-10">💡 What’s the Problem?</h2>
+                                    <p className="text-xl">
+                                        Keeping the soil fertile and productive for each harvest requires constant evaluation of its condition.
+                                        Without precise data, you could be making risky decisions that lower the quality of your crops. 🌾
+                                    </p>
+                                </div>
+                            </section>
+
+                            <section className="bg-gray-100 py-20">
+                                <div className="max-w-6xl mx-auto text-center  text-gray-700">
+                                    <h2 className="text-4xl font-semibold mb-10">🚀 The Solution</h2>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                        <div className="p-6 bg-white rounded-lg shadow-md">
+                                            <h3 className="text-2xl font-bold">🛰️ Real-Time Satellite Monitoring</h3>
+                                            <p className="mt-4">Know the real-time status of your land thanks to Landsat 8 and 9 satellite data.</p>
+                                        </div>
+                                        <div className="p-6 bg-white rounded-lg shadow-md">
+                                            <h3 className="text-2xl font-bold">📊 Precise Terrain Analysis</h3>
+                                            <p className="mt-4">Evaluate soil reflectance and make informed decisions about when to let the land rest or start the next planting.</p>
+                                        </div>
+                                        <div className="p-6 bg-white rounded-lg shadow-md">
+                                            <h3 className="text-2xl font-bold">🔔 Custom Notifications</h3>
+                                            <p className="mt-4">Receive alerts when the satellite passes over your zone and access the latest data.</p>
+                                        </div>
+                                        <div className="p-6 bg-white rounded-lg shadow-md">
+                                            <h3 className="text-2xl font-bold">📅 Data History</h3>
+                                            <p className="mt-4">Access historical data and optimize your agricultural decisions for the long term.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section className="bg-slate-800 text-white py-20">
+                                <div className="max-w-6xl mx-auto text-center">
+                                    <h2 className="text-4xl font-semibold mb-10">🌍 Ready to Start Monitoring Today?</h2>
+                                    <p className="text-lg mb-10">
+                                        Increase your crop productivity and make decisions based on scientific data.
+                                        Don’t leave the next harvest to chance. It’s time to monitor intelligently! 🚜
+                                    </p>
+                                    <Link
+                                        href={route('login')}
+                                        className="mt-8 bg-red-600 text-white px-8 py-4 rounded-full hover:bg-red-700 transition-transform transform hover:scale-105 shadow-xl"
+                                    >
+                                        Start Tracking 🌍
                                     </Link>
                                 </div>
                             </section>
 
 
-                            {/* About Section */}
-                            <section id="about" className="py-20 px-10 bg-white">
-                                <h2 className="text-4xl font-bold text-center mb-8">Acerca del Proyecto</h2>
-                                <p className="text-lg text-center max-w-3xl mx-auto mb-12">
-                                    En este proyecto, estamos utilizando los datos satelitales proporcionados por Landsat 8 y 9
-                                    para generar soluciones a los desafíos actuales relacionados con la observación de la Tierra.
-                                    Esto incluye el monitoreo del cambio climático, la gestión de recursos naturales, y más.
-                                </p>
-                                <div className="flex justify-center">
-                                    <img
-                                        src="/path-to-project-image.jpg"
-                                        alt="Project Preview"
-                                        className="rounded-lg shadow-lg w-2/3"
-                                    />
+                            <footer className="bg-black text-white py-6">
+                                <div className="max-w-6xl mx-auto text-center">
+                                    <p className="text-sm">Participants:</p>
+                                    <p className="text-lg font-semibold">Mayelin Stefania Aguilar & John Alejandro Hernandez</p>
+                                    <a
+                                        href="https://www.spaceappschallenge.org/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-400 hover:underline mt-2 block"
+                                    >
+                                        https://www.spaceappschallenge.org/
+                                    </a>
                                 </div>
-                            </section>
-
-                            {/* Features Section */}
-                            <section id="features" className="py-20 px-10 bg-gray-50">
-                                <h2 className="text-4xl font-bold text-center mb-8">Características Principales</h2>
-                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                                    <div className="bg-white p-6 rounded-lg shadow-md">
-                                        <h3 className="text-2xl font-bold mb-4">Monitoreo Ambiental</h3>
-                                        <p>
-                                            Usamos imágenes satelitales de Landsat para monitorear cambios en el medio ambiente, como deforestación, crecimiento urbano y más.
-                                        </p>
-                                    </div>
-                                    <div className="bg-white p-6 rounded-lg shadow-md">
-                                        <h3 className="text-2xl font-bold mb-4">Análisis de Datos</h3>
-                                        <p>
-                                            Los datos de Landsat se procesan utilizando técnicas de análisis avanzadas para obtener información clave sobre los recursos naturales.
-                                        </p>
-                                    </div>
-                                    <div className="bg-white p-6 rounded-lg shadow-md">
-                                        <h3 className="text-2xl font-bold mb-4">Visualización Personalizada</h3>
-                                        <p>
-                                            Generamos visualizaciones a partir de los datos recolectados, permitiendo la interpretación rápida y eficaz de los resultados.
-                                        </p>
-                                    </div>
-                                </div>
-                            </section>
+                            </footer>
                         </main>
 
-                        <footer className="py-16 text-center text-sm text-black dark:text-white/70">
-                            CIAZ - challenge space NASA 2024
-                        </footer>
+
                     </div>
                 </div>
             </div>
